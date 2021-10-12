@@ -18,8 +18,8 @@ public class PersonsController {
     }
 
     @GetMapping("/persons/by-city")
-    public List<Persons> getPersonsByCity(@RequestParam("city") String city_of_living){
-        return personsService.getPersonsByCity(city_of_living);
+    public List<Persons> getPersonsByCity(@RequestParam("city") String city){
+        return personsService.getPersonsByCity(city);
     }
 
     @GetMapping("/persons/init")

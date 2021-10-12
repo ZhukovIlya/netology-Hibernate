@@ -15,8 +15,8 @@ public class PersonsService {
         this.personsRepository = personsRepository;
     }
 
-    public List<Persons> getPersonsByCity(String city_of_living) {
-        return personsRepository.getPersonsByCity(city_of_living);
+    public List<Persons> getPersonsByCity(String city) {
+        return personsRepository.getPersonsByCity(city);
     }
 
     public String initPersons() {

@@ -32,15 +32,15 @@ public class PersonsRepository {
                     var person = Persons.builder()
                             .personsKey(personsKey)
                             .phone_number("Телефон")
-                            .city_of_living(cites.get(random.nextInt(cites.size())))
+                            .city(cites.get(random.nextInt(cites.size())))
                             .build();
                     entityManager.persist(person);
                 });
     }
 
-    public List<Persons> getPersonsByCity(String city_of_living) {
-        TypedQuery<Persons> query = entityManager.createQuery("select p from Persons p where p.city_of_living = :city_of_living", Persons.class);
-        query.setParameter("city_of_living", city_of_living);
+    public List<Persons> getPersonsByCity(String city) {
+        TypedQuery<Persons> query = entityManager.createQuery("select p from Persons p where p.city = :city", Persons.class);
+        query.setParameter("city", city);
         return query.getResultList();
     }
 
