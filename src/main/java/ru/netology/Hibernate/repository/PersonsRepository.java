@@ -12,9 +12,12 @@ import java.util.stream.IntStream;
 
 @Repository
 public class PersonsRepository {
-    @PersistenceContext
-    private EntityManager entityManager;
 
+    private PersonsJpaRepository personsJpaRepository;
+
+    public PersonsRepository(PersonsJpaRepository personsJpaRepository) {
+        this.personsJpaRepository = personsJpaRepository;
+    }
     @Transactional
     public void initPersons() {
         List<String> names = List.of("Andrey", "Pavel", "Vlad");
@@ -34,14 +37,19 @@ public class PersonsRepository {
                             .phone_number("Телефон")
                             .city(cites.get(random.nextInt(cites.size())))
                             .build();
-                    entityManager.persist(person);
+                    personsJpaRepository.save(person);
                 });
     }
-
     public List<Persons> getPersonsByCity(String city) {
-        TypedQuery<Persons> query = entityManager.createQuery("select p from Persons p where p.city = :city", Persons.class);
-        query.setParameter("city", city);
-        return query.getResultList();
+        return personsJpaRepository.findByCity(city);
+    }
+
+    public List<Persons> getPersonsLessAge(int age) {
+        return personsJpaRepository.findByPersonsKey_AgeLessThanOrderByPersonsKeyAge(age);
+    }
+
+    public List<Persons> getPersonsNameSurname(String name, String surname) {
+        return personsJpaRepository.findFirstByPersonsKey_NameAndPersonsKey_Surname(name, surname);
     }
 
 }

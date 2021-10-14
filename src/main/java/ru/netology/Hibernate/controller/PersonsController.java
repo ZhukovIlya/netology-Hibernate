@@ -22,6 +22,15 @@ public class PersonsController {
         return personsService.getPersonsByCity(city);
     }
 
+    @GetMapping("/persons/less-age")
+    public List<Persons> getPersonsLessAge(@RequestParam("age") int age){
+        return personsService.getPersonsLessAge(age);
+    }
+    @GetMapping("/persons")
+    public List<Persons> getPersonsNameSurname(@RequestParam("name") String name, @RequestParam("surname") String surname) {
+        return personsService.getPersonsNameSurname(name, surname);
+    }
+
     @GetMapping("/persons/init")
     public String initPersons() {
         return personsService.initPersons();
